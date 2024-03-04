@@ -19,7 +19,7 @@ func main() {
 
 	args := flag.Args()
 	if len(args) == 0 {
-		fmt.Println("ERROR: no command provided")
+		fmt.Println("ERROR: no command provided") //nolint:forbidigo
 		os.Exit(1)
 	}
 	program := args[0]
@@ -37,7 +37,7 @@ func main() {
 
 	err := cmd.Start()
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err) //nolint:forbidigo
 		os.Exit(1)
 	}
 
@@ -51,17 +51,17 @@ func main() {
 				return
 
 			case tt := <-tick.C:
-				fmt.Printf("  command has taken %v\n", tt.Sub(start).Truncate(time.Second))
+				fmt.Printf("  command has taken %v\n", tt.Sub(start).Truncate(time.Second)) //nolint:forbidigo
 			}
 		}
 	}()
 	defer func() {
-		fmt.Printf("  command took %v\n", time.Now().Sub(start).Truncate(time.Second))
+		fmt.Printf("  command took %v\n", time.Now().Sub(start).Truncate(time.Second)) //nolint:forbidigo
 	}()
 
 	err = cmd.Wait()
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err) //nolint:forbidigo
 		os.Exit(1)
 	}
 }
