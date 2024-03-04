@@ -56,7 +56,7 @@ func main() {
 		}
 	}()
 	defer func() {
-		fmt.Printf("  command took %v\n", time.Now().Sub(start).Truncate(time.Second)) //nolint:forbidigo
+		fmt.Printf("  command took %v\n", time.Since(start).Truncate(time.Second)) //nolint:forbidigo
 	}()
 
 	err = cmd.Wait()
