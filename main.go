@@ -19,7 +19,7 @@ func main() {
 
 	args := flag.Args()
 	if len(args) == 0 {
-		fmt.Println("ERROR: no command provided") //nolint:forbidigo
+		fmt.Println("ERROR: no command provided")
 		os.Exit(1)
 	}
 	program := args[0]
@@ -30,14 +30,14 @@ func main() {
 	ctx, cancelFunc := signal.NotifyContext(context.Background(), os.Interrupt, os.Kill)
 	defer cancelFunc()
 
-	cmd := exec.CommandContext(ctx, program, args...) //nolint:gosec
+	cmd := exec.CommandContext(ctx, program, args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stdout
 	cmd.Stdin = os.Stdin
 
 	err := cmd.Start()
 	if err != nil {
-		fmt.Println(err) //nolint:forbidigo
+		fmt.Println(err)
 		os.Exit(1)
 	}
 
@@ -51,17 +51,17 @@ func main() {
 				return
 
 			case tt := <-tick.C:
-				fmt.Printf("  command has taken %v\n", tt.Sub(start).Truncate(time.Second)) //nolint:forbidigo
+				fmt.Printf("  command has taken %v\n", tt.Sub(start).Truncate(time.Second))
 			}
 		}
 	}()
 	defer func() {
-		fmt.Printf("  command took %v\n", time.Since(start).Truncate(time.Second)) //nolint:forbidigo
+		fmt.Printf("  command took %v\n", time.Since(start).Truncate(time.Second))
 	}()
 
 	err = cmd.Wait()
 	if err != nil {
-		fmt.Println(err) //nolint:forbidigo
+		fmt.Println(err)
 		os.Exit(1)
 	}
 }
